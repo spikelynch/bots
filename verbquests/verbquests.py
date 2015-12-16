@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.5
 
 from nltk.corpus import wordnet as wn
 from twython import Twython
