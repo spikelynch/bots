@@ -60,10 +60,9 @@ def load_config(conffile):
 
 def dump_nouns(q):
     for s in q.nouns:
-        if "'" in s.name():
-            print(s.name(), s.definition())
-            for l in s.lemmas():
-                print(l.name())
+        print(s.name(), s.definition())
+        for l in s.lemmas():
+            print(l.name())
 
         
 if __name__ == '__main__':
