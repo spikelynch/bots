@@ -3,7 +3,11 @@
 from nltk.corpus import wordnet as wn
 from twython import Twython
 import random, pystache, yaml, sys, argparse
+import re
 
+# Synsets which are offensive but not flagged as such in the
+# WordNet definition
+SLUR_SS = [ 'native.n.01', 'aborigine.n.02' ] 
 
 
 def random_word(synsets):
@@ -13,6 +17,8 @@ def random_word(synsets):
     return name.replace('_', ' ')
 
 def is_not_slur(synset):
+    if synset.name() in SLUR_SS:
+        return False
     d = synset.definition()
     if 'slur' in d or 'offensive' in d:
         return False
@@ -42,14 +48,24 @@ def load_config(conffile):
         sys.exit(-1)
     return config
 
+
+def dump_nouns(q):
+    for s in q.nouns:
+        for l in s.lemmas():
+            print(l.name())
+
         
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', '--config', required=True, type=str, help="Config file")
     parser.add_argument('-d', '--dry-run', action='store_true', help="Don't post")
+    parser.add_argument('-t', '--test', action='store_true', help="Don't post, dump list of all nouns to test for bad words")
     args = parser.parse_args()
     cf = load_config(args.config)
     q = Quest()
+    if args.test:
+        dump_nouns(q)
+        sys.exit(1)
     pyr = pystache.Renderer()
     tweet = pyr.render(q)
     print(tweet)
