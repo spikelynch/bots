@@ -5,6 +5,11 @@ from twitterbot import TwitterBot
 
 class XIIScripta(TwitterBot):
 
+    # three sets of word pairs, which may be:
+    # Verb Noun (nominative)
+    # Verb Verb (infinitive, 
+
+    
     def generate(self):
         self.a = "VENARI"
         self.b = "LAVARI"

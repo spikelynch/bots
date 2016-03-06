@@ -6,6 +6,7 @@ import yaml
 
 PAGE_RE = "^(.*?)\("
 BRACKET_RE = "^\S*?\s\[(.*?)\]"
+EXCLUDE_RE = "https?://"
 
 def smart_fix(line):
     l = line.strip()
@@ -76,7 +77,7 @@ unique_bugs = {}
 
 for p in list_man_pages():
     bugs = read_man(p)
-    mask_re = re.compile('https?://')
+    mask_re = re.compile(EXCLUDE_RE)
     if bugs:
         for sent in split_sentences(bugs):
             if len(sent) < 141 and not mask_re.search(sent):
