@@ -24,6 +24,7 @@ def read_man(page):
     try:
         manbytes = subprocess.check_output(["man", page])
     except subprocess.CalledProcessError as e:
+        print("Error calling man: %s" % e)
         return []
     manstr = manbytes.decode()
     bugs = []
@@ -58,9 +59,9 @@ def list_man_pages():
             if m2:
                 page = m2.group(1)
             else:
-                page = m.group(1)
+                page = m.group(1).strip()
             pages[page] = 1
-    return pages.keys()
+    return list(pages.keys())
 
 def full_stop(s):
     if not s[-1] == '.':
@@ -74,7 +75,9 @@ def split_sentences(text):
 
 unique_bugs = {}
 
-for p in list_man_pages():
+pages = list_man_pages()
+
+for p in pages:
     bugs = read_man(p)
     mask_re = re.compile('https?://')
     if bugs:
