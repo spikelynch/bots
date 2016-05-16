@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.5
+#!/usr/bin/env python3.2
 
 import re, requests, html
 from twitterbot import TwitterBot

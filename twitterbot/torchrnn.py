@@ -2,8 +2,8 @@
 
 import subprocess
 
-TORCHRNN = '/Users/mike/torch/torch-rnn'
-TRCMD = [ 'th', TORCHRNN + '/sample.lua' ]
+TORCHRNN = '/home/pi/torch/torch-rnn'
+TRCMD = [ '/home/pi/torch/install/bin/th', TORCHRNN + '/sample.lua' ]
 TRARGS = { '-gpu': '-1' }
 
 SAMPLE_SIZE = 5
@@ -11,8 +11,8 @@ DEFAULT_LINE = 140
 
 
 def run_sample(model, temperature, start, nchars):
-    cmd = TRCMD.copy()
-    args = TRARGS.copy()
+    cmd = TRCMD
+    args = TRARGS
     args['-checkpoint'] = model
     args['-temperature'] = str(temperature)
     args['-length'] = str(nchars)
