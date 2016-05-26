@@ -5,9 +5,10 @@ import subprocess
 
 class AMightyHost(TwitterBot):
 
-    def warriots(self):
+    def warriors(self):
         cmd = [ self.cf['exe'], self.cf['data'] ]
-        army = subprocss.check_output(cmd)
+        army = subprocess.check_output(cmd)
+        return army[:-1]
         
 if __name__ == '__main__':
     amh = AMightyHost()
