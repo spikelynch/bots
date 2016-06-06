@@ -6,6 +6,6 @@ api_secret:
 oauth_token:        
 oauth_token_secret: 
 
-model: /User/mike/torch/torch-rnn/cv_twitter_two/checkpoint_35850.t7
+model: /home/pi/torch/torch-rnn/cv/bombinans.t7
 temperature: 0.8
 pause: 1

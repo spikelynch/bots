@@ -7,23 +7,30 @@ import re
 
 class BombinaNN(TwitterBot):
 
-    def bombianann(self):
-        twhtmls = torchrnn.generate_lines(model=self.cf['model'])
-        if twhtmls:
-            dv = re.compile('<div>.*</div>')
-            m = dv.search(twhtmls[0])
-            if m:
-                tw = m.groups(1)
-                tw = tw.replace('<br />', '')
-                return tw
-        
+    def greptw(self, str):
+        dv = re.compile('<div>(.*)</div>')
+        m = dv.search(str)
+        if m:
+            tw = m.group(1)
+            tw = tw.replace('<br />', '')
+            return tw
+        else:
+            return None 
+
+    def bombinan(self):
+        twhtmls = torchrnn.generate_lines(model=self.cf['model'], n=10)
+        for t in twhtmls:
+            tt = self.greptw(t)
+            if tt:
+                return tt
+        return None
         
 if __name__ == '__main__':
-    b = BombinaNNM()
+    b = BombinaNN()
     b.configure()
-    tweet = b.bombinann()
+    tweet = b.bombinan()
     if tweet:
-        bot.post(tweet)
+        b.post(tweet)
     else:
         print("Something went wrong")
 
