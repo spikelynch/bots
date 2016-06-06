@@ -1,11 +1,9 @@
+# config for A Mighty Host
 
-# config for A Mighty Host 
+api_key: 
+api_secret:
+oauth_token:
+oauth_token_secret:
 
-api_key:            
-api_secret:         
-oauth_token:        
-oauth_token_secret: 
-
-lastfile: last.txt
-textfile: hosts.txt
-
+exe: /home/mikelynch/.local/bin/amightyhost-exe
+data: /home/mikelynch/bots/amightyhost/data/
