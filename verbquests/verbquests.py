@@ -65,6 +65,7 @@ if __name__ == '__main__':
         sys.exit(1)
     q.randomise()
     tweet = q.render()
+    q.wait()
     q.post(tweet)
     print(tweet)
 
