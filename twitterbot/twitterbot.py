@@ -3,7 +3,7 @@ bot - a basic Bot class
 """
 
 from twython import Twython
-import argparse, yaml, pystache
+import argparse, yaml, pystache, random, time
 
 CHAR_LIMIT = 140
 CHAR_LIMIT_IMG = 130
