@@ -15,6 +15,7 @@ if __name__ == '__main__':
     amh.configure()
     tweet = amh.warriors()
     if tweet:
+        amh.wait()
         amh.post(tweet)
     else:
         print("Something went wrong")

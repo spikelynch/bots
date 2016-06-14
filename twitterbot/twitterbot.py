@@ -3,7 +3,7 @@ bot - a basic Bot class
 """
 
 from twython import Twython
-import argparse, yaml, pystache
+import argparse, yaml, pystache, random, time
 
 CHAR_LIMIT = 140
 CHAR_LIMIT_IMG = 130
@@ -134,3 +134,15 @@ Returns:
         else:
             return False
         
+    def wait(self):
+        """Wait for a random interval
+
+        If there's a config variable 'pause', this method picks a random
+        number between 0 and pause, and sleeps for that number of seconds.
+        This is a simple way to make bot timing be less metronomic: you
+        can set a cron job and then have a bit of scatter"""
+        
+        if 'pause' in self.cf:
+            pause = random.randrange(0, int(self.cf['pause']))
+            print("Waiting for {}".format(pause))
+            time.sleep(pause)

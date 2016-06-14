@@ -30,16 +30,34 @@ def wordlist(synsets, plurals=False):
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-s", "--synset", type=str, default="animal", help="Synset to dump hyponyms of")
+parser.add_argument("-l", "--list", action='store_true', help="List synsets")
 parser.add_argument("-p", "--plurals", action='store_true', help="Generate plurals", default=False)
 
 
 args = parser.parse_args()
-    
-synsets = wn.synsets(args.synset)
-if not synsets:
-    print("Couldn't find synset");
-    sys.exit(-1)
 
+synsets = []
+
+if '.' in args.synset:
+    synset = wn.synset(args.synset)
+    if not synset:
+        print("Couldn't find synset with ID {}".format(args.synset));
+        sys.exit(-1)
+    synsets = [ synset ]
+else:
+    synsets = wn.synsets(args.synset)
+    if not synsets:
+        print("Couldn't find synsets matching {}".format(args.synset));
+        sys.exit(-1)
+
+if not synsets:
+    print("No synsets found for {}".format(args.synset))
+    sys.exit(-1)
+        
+if args.list:
+    print(synsets)
+    sys.exit(0)
+    
 sets = []
     
 for ss in synsets:

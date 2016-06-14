@@ -38,6 +38,7 @@ if __name__ == '__main__':
     bot.configure()
     tweet = bot.got_the_blues()
     if tweet:
+        bot.wait()
         bot.post(tweet)
     else:
         print("Something went wrong")
