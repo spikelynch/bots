@@ -1,0 +1,14 @@
+
+# config for usylessly
+
+api_key: 
+api_secret: 
+oauth_token: 
+oauth_token_secret: 
+
+model: /Users/mike/torch/torch-rnn/cv_ulysses_all/checkpoint_50000.t7
+temperature: .76
+low: 0.2
+high: 1.2
+nchars: 10000
+start_text: "yes"

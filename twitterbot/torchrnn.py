@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 
-import subprocess
+import subprocess, os
 
-TORCHRNN = '/home/pi/torch/torch-rnn'
-TRCMD = [ '/home/pi/torch/install/bin/th', TORCHRNN + '/sample.lua' ]
+TORCHRNN = os.environ['TORCH_RNN']
+
+TRCMD = [ os.environ['TORCH_TH'], TORCHRNN + '/sample.lua' ]
 TRARGS = { '-gpu': '-1' }
 
 SAMPLE_SIZE = 5
