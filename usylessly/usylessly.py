@@ -73,14 +73,10 @@ class Usylessly(TwitterBot):
 if __name__ == '__main__':
     bot = Usylessly()
     bot.configure()
-#    print(bot.cf)
-#    sys.exit(-1)
-#    temp = bot.time_to_temp()
     sents = bot.sentences()
     tweet = bot.make_tweet(sents)
     if tweet:
         print(tweet)
-        tweet = '\u2015Test, he said.'
         bot.post(tweet)
     else:
         print("something went wrong")
