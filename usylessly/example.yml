@@ -1,14 +1,84 @@
 
 # config for usylessly
 
-api_key: 
-api_secret: 
-oauth_token: 
-oauth_token_secret: 
-
-model: /Users/mike/torch/torch-rnn/cv_ulysses_all/checkpoint_50000.t7
+model: /Users/mike/torch/torch-rnn/cv/checkpoint_49300.t7
 temperature: .76
-low: 0.2
+low: 0.5
 high: 1.2
-nchars: 10000
-start_text: "yes"
+nchars: 4000
+start_text: ""
+
+episodes:
+    telemachus:
+        seeds: snotgreen stately plump Oxford Haines Mulligan tower
+        hour: 8
+        temp: 0.6
+    nestor:
+        seeds: Deasy coin snail shout nightmare school kings
+        hour: 9
+        temp: 0.6
+    proteus:
+        seeds: ineluctable modality strand sea read eternity
+        hour: 10
+        temp: 0.64
+    calypso:
+        seeds: kidney burn mkgrnao Bloom relish she ease
+        hour: 8
+        temp: 0.6
+    lotuseaters:
+        seeds: bath eat Plumtrees tooraloom Love flower Henry Martha
+        hour: 10
+        temp: 0.65
+    hades:
+        seeds: Parnell Dedalus Martin Cunningham rat grave Dignam
+        hour: 11
+        temp: 0.72
+    aeolus:
+        seeds: KMA KMRIA Moses Pisgah Keyes METROPOLIS
+        hour: 12
+        temp: 0.78
+    lestrygonians:
+        seeds: Banbury cheese stale H. E. L. Y. S. Breen gull
+        hour: 13
+        temp: 0.6
+    scyllaandcharybdis:
+        seeds: quaker librarian Hamlet Shakespeare Plato Aristotle AEIOU
+        hour: 14
+        temp: 0.75
+    wanderingrocks:
+        seeds: Conmee Kelleher Boody Artifoni Lenehan Raoul sweets sin
+        hour: 15
+        temp: 0.73
+    sirens:
+        seeds: bronze gold Miss sonnez chips blue lost maidenhair rrpr
+        hour: 16
+        temp: 0.78
+    cyclops:
+        seeds: citizen bloody damn pint hero hanged phenomenon Wolfe Emmet 
+        hour: 17
+        temp: 0.85
+    nausicaa:
+        seeds: Mary star bat Cissy Caffrey Mayhap laughed lucky sweet
+        hour: 20
+        temp: 0.5
+    oxenofthesun:
+        seeds: Deshil Holles Universally hight leman Sir Lynch Costello
+        hour: 22
+        temp: 0.9
+    circe:
+        seeds: nighttown Virag compton carr Lynch Bella Bello Zoe watch  
+        hour: 0
+        temp: 1.2
+    eumaeus:
+        seeds: Samaritan Stephen Rourke credit confusion cabman shelter
+        hour: 1
+        temp: 0.4
+    ithaca: 
+        seeds: What Where How views such there flow leopold temperaments
+        hour: 2
+        temp: 0.65
+    penelope: 
+        seeds: Yes yes because never well shes palm breast O yes
+        hour: 5
+        temp: 0.3
+     
