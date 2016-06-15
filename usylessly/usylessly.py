@@ -5,6 +5,7 @@ import torchrnn
 import sys, datetime, time, random, os.path, re, math
 
 MAX_LENGTH = 140
+MAX_REPEATS = 10
 
 START_TRIM = 100
 
@@ -26,14 +27,17 @@ class Usylessly(TwitterBot):
     def sentences(self):
         seed = ""
         hour = None
+        temp = None
         if self.args.episode:
             if self.args.episode in self.cf['episodes']:
                 seeds = self.cf['episodes'][self.args.episode]['seeds']
                 seed = random.choice(seeds.split(' '))
                 print("Seed: {}".format(seed))
-                hour = int(self.cf['episodes'][self.args.episode]['hour'])
-        temperature = self.time_to_temp(hour=hour)
-        text = self.raw(temperature, seed)
+                temp = float(self.cf['episodes'][self.args.episode]['temp'])
+                print("Temp: {}".format(temp))
+        if not temp:
+            temp = self.time_to_temp(hour=hour)
+        text = self.raw(temp, seed)
         try:
             text = text.decode('utf-8')
         except UnicodeDecodeError as e:
@@ -47,16 +51,15 @@ class Usylessly(TwitterBot):
 
     def make_tweet(self, sentences):
         tw = None
-        short = [ s for s in sentences if len(s) <= MAX_LENGTH ]
-        if short:
-            tw = random.choice(short)
-        else:
-            words = re.split('\s+', random.choice(sentences))
-            molly = words.pop(0)
-            while len(molly) < MAX_LENGTH:
-                tw = molly
-                molly += ' ' + words.pop(0)
-        tw = re.sub(r'^\u2014', '\u2015', tw)
+        chunks = [ s for s in sentences[1:] if len(s) <= MAX_LENGTH ]
+        if not len(chunks):
+            chunks = re.split('\s+', random.choice(sentences))
+        para = chunks.pop(0)
+        while len(para) < MAX_LENGTH:
+            tw = para
+            para += ' ' + chunks.pop(0)
+        if tw:
+            tw = re.sub(r' \u2014', '\n\u2015', tw)
         return tw
 
     def time_to_temp(self, hour=None):
@@ -69,12 +72,21 @@ class Usylessly(TwitterBot):
         t = l + s * ( h - l )
         print("Temperature {}".format(t))
         return t
+
+    def ulyssitise(self):
+        reps = 0
+        tw = None
+        while not tw and reps < MAX_REPEATS:
+            sents = self.sentences()
+            tw = self.make_tweet(sents)
+            reps += 1
+        return tw
+    
     
 if __name__ == '__main__':
     bot = Usylessly()
     bot.configure()
-    sents = bot.sentences()
-    tweet = bot.make_tweet(sents)
+    tweet = bot.ulyssitise()
     if tweet:
         print(tweet)
         bot.post(tweet)
