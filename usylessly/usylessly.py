@@ -2,14 +2,18 @@
 
 from twitterbot import TwitterBot
 import torchrnn
-import datetime, time, random, os.path, re, math
+import sys, datetime, time, random, os.path, re, math
 
 MAX_LENGTH = 140
 
 START_TRIM = 100
 
 class Usylessly(TwitterBot):
+    def __init__(self):
+        super().__init__()
+        self.ap.add_argument('-e', '--episode', type=str, default=None, help="Config file")
 
+        
     def raw(self, temperature=1, start=''):
         raw = torchrnn.run_sample(
             self.cf['model'],
@@ -19,8 +23,17 @@ class Usylessly(TwitterBot):
             )
         return raw[START_TRIM:]
     
-    def sentences(self, temperature=1, start=''):
-        text = self.raw(temperature, self.cf['start_text'])
+    def sentences(self):
+        seed = ""
+        hour = None
+        if self.args.episode:
+            if self.args.episode in self.cf['episodes']:
+                seeds = self.cf['episodes'][self.args.episode]['seeds']
+                seed = random.choice(seeds.split(' '))
+                print("Seed: {}".format(seed))
+                hour = int(self.cf['episodes'][self.args.episode]['hour'])
+        temperature = self.time_to_temp(hour=hour)
+        text = self.raw(temperature, seed)
         try:
             text = text.decode('utf-8')
         except UnicodeDecodeError as e:
@@ -46,21 +59,28 @@ class Usylessly(TwitterBot):
         tw = re.sub(r'^\u2014', '\u2015', tw)
         return tw
 
-    def time_to_temp(self):
-        hour = datetime.datetime.now().hour
+    def time_to_temp(self, hour=None):
+        if not hour:
+            hour = datetime.datetime.now().hour
+        print("Hour {}".format(hour))
         s = 0.5 * (1 + math.cos(math.pi * hour / 12.0))
         h = self.cf['high']
         l = self.cf['low']
-        return l + s * ( h - l )
+        t = l + s * ( h - l )
+        print("Temperature {}".format(t))
+        return t
     
 if __name__ == '__main__':
     bot = Usylessly()
     bot.configure()
-    temp = bot.time_to_temp()
-    sents = bot.sentences(temperature=temp, start='')
+#    print(bot.cf)
+#    sys.exit(-1)
+#    temp = bot.time_to_temp()
+    sents = bot.sentences()
     tweet = bot.make_tweet(sents)
     if tweet:
         print(tweet)
+        tweet = '\u2015Test, he said.'
         bot.post(tweet)
     else:
         print("something went wrong")
