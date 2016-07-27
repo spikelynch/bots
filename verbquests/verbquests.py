@@ -15,6 +15,27 @@ def random_word(synsets):
     name = lemma.name()
     return name.replace('_', ' ')
 
+def is_transitive(lemma):
+    ln = lemma.name()
+    for fs in lemma.frame_strings():
+        frame = fs.split(' ')
+        if frame[-1] != ln and frame[-1] != 'PP':
+            return True
+    return False
+
+def random_transitive_verb(verbs):
+    lemma = None
+    while not lemma:
+        v = random.choice(verbs)
+        lemmas = [ l for l in v.lemmas() if is_transitive(l) ]
+        if lemmas:
+            lemma = random.choice(lemmas) 
+    name = lemma.name()
+    return name.replace('_', ' ')
+
+
+
+
 def is_not_slur(synset):
     if synset.name() in SLUR_SS:
         return False
@@ -47,7 +68,7 @@ class Quest(TwitterBot):
                 sys.exit(-1)
         else:
             self.noun = random_word(self.nouns).upper()
-        self.verb = random_word(self.verbs).upper()
+        self.verb = random_transitive_verb(self.verbs).upper()
 
     def dump_nouns(self):
         self.read_words()
