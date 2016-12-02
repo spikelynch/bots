@@ -1,39 +1,13 @@
 
-# config for Talking Bot Blues
+# config for TVIsoTropes
 
 api_key:            
 api_secret:         
 oauth_token:        
 oauth_token_secret: 
 
-wiki_url: https://en.wikipedia.org/wiki/Special:Random
-title_re: <title>(.*) -
-
-nocaps:
- - a
- - and
- - the
- - and
- - but
- - nor
- - or
- - at
- - by
- - for
- - from
- - in
- - into
- - of
- - off
- - on
- - onto
- - out
- - up
- - with
- - to
- - as
-
-
-
-tweet_template: Talking {} Blues
-
+elements: elements.json
+trope_url: http://tvtropes.org/pmwiki/randomitem.php?p=1
+trope_re: <title>(.*) - TV Tropes
+with_start: 1
+max_repeats: 10
