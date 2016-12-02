@@ -54,20 +54,15 @@ class TVisoTropes(TwitterBot):
         else:
             title = self.url_title()
         if title:
-            print("unesc title " + title)
             words = word_tokenize(title)
-            print("tokenised " + ', '.join(words))
             if len(words) > 1:
                 tagged = nltk.pos_tag(words)
                 i = 0
                 cnouns = []
-                print(self.cf['pos_tags'])
                 pos_re = re.compile(self.cf['pos_tags'])
                 for ( w, pos ) in tagged:
                     mm = pos_re.search(pos)
                     if mm:
-                        print("Matched " + w + " '" + pos + "'")
-                        print(mm.group(0), mm.group(1))
                         e = self.get_element(w[0])
                         if e:
                             cnouns.append((i, e))
