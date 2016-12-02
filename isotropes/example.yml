@@ -9,5 +9,10 @@ oauth_token_secret:
 elements: elements.json
 trope_url: http://tvtropes.org/pmwiki/randomitem.php?p=1
 trope_re: <title>(.*) - TV Tropes
+pos_tags: "^(NNP?S?|PRP)$"
+
+#trope_test_url: http://tvtropes.org/pmwiki/pmwiki.php/Main/IdTellYouButThenIdHaveToKillYou
+#test_title: This hasn't got a lot of "weird" stuff Hallows'
+
 with_start: 1
 max_repeats: 10

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import json, random, string, requests, re
+import json, random, string, requests, re, html
 import nltk
 from nltk.tokenize import word_tokenize
 from twitterbot import TwitterBot
@@ -33,31 +33,60 @@ class TVisoTropes(TwitterBot):
         else:
             return(None)
 
-    def get_isotrope(self):
+    def url_title(self):
         title_re = re.compile(self.cf['trope_re'])
-        r = requests.get(self.cf['trope_url'])
+        url = self.cf['trope_url']
+        if 'trope_test_url' in self.cf:
+            url = self.cf['trope_test_url']
+        r = requests.get(url)
         if r.status_code == 200:
             m = title_re.search(r.text)
             if m:
                 title = m.group(1)
-                words = word_tokenize(title)
-                if len(words) > 1:
-                    tagged = nltk.pos_tag(words)
-                    i = 0
-                    cnouns = []
-                    for ( w, pos ) in tagged:
-                        if pos[:2] == 'NN':
-                            e = self.get_element(w[0])
-                            if e:
-                                cnouns.append((i, e))
-                        i += 1
-                    if cnouns:
-                        return ( tagged, cnouns )
+                title = html.unescape(title)
+                return title
+        return None
+
+    def get_isotrope(self):
+        title = None
+        if 'test_title' in self.cf:
+            title = self.cf['test_title']
+        else:
+            title = self.url_title()
+        if title:
+            print("unesc title " + title)
+            words = word_tokenize(title)
+            print("tokenised " + ', '.join(words))
+            if len(words) > 1:
+                tagged = nltk.pos_tag(words)
+                i = 0
+                cnouns = []
+                print(self.cf['pos_tags'])
+                pos_re = re.compile(self.cf['pos_tags'])
+                for ( w, pos ) in tagged:
+                    mm = pos_re.search(pos)
+                    if mm:
+                        print("Matched " + w + " '" + pos + "'")
+                        print(mm.group(0), mm.group(1))
+                        e = self.get_element(w[0])
+                        if e:
+                            cnouns.append((i, e))
+                    i += 1
+                if cnouns:
+                    return ( tagged, cnouns )
         return ( None, None )
 
     def smart_join(self, words):
         basic = ' '.join(words)
-        return re.sub(r"\s([.,:;!?])", r"\1", basic)
+        # nltk tokenizer turns "foo" into ``foo'' - turn it back
+        q1 = re.sub(r" `` ", r' "', basic)
+        q2 = re.sub(r"`` ", r'"', q1)
+        q3 = re.sub(r" '' ", r'" ', q2)
+        q4 = re.sub(r" ''", r'"', q3)
+        q5 = re.sub(r" n't ", r"n't ", q4)
+        q6 = re.sub(r" '([a-z]) ", r"'\1 ", q5)
+        q7 = re.sub(r"\b '", r"'", q6)
+        return re.sub(r"\s([.,:;!?])", r"\1", q7)
     
 
     def render(self):
