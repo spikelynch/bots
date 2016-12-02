@@ -86,6 +86,7 @@ if __name__ == '__main__':
     
     tweet = b.render()
     if tweet:
+        b.wait()
         b.post(tweet)
         print(tweet)
     else:
