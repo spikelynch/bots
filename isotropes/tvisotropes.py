@@ -5,9 +5,6 @@ import nltk
 from nltk.tokenize import word_tokenize
 from twitterbot import TwitterBot
 
-ELEMENTS = 'elements.json'
-TROPE_URL = 'http://tvtropes.org/pmwiki/randomitem.php?p=1'
-TROPE_RE = '<title>(.*) - TV Tropes'
 elements = None
 
 
@@ -22,7 +19,7 @@ class TVisoTropes(TwitterBot):
 
     def read_elements(self):
         ej = None
-        with open(ELEMENTS) as ef:
+        with open(self.cf['elements']) as ef:
             ej = json.load(ef)
         if ej:
             self.elements = ej['elements']
