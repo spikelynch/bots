@@ -7,6 +7,22 @@ from twitterbot import TwitterBot
 
 elements = None
 
+UNCONTRACT = {
+    r"(\w) 're": r"\1're",
+    r"(\w) 've": r"\1've",
+    r"(\w) 'll": r"\1've",
+    r"(\w) n't": r"\1n't",
+    r"([cC])an not": r"\1annot",
+    r"([Dd]) 'ye": r"\1'ye",
+    r"([gG])im me": r"\1imme",
+    r"([gG])on na": r"\1onna",
+    r"([gG])ot ta": r"\1otta",
+    r"([lL])em me": r"\1emme",
+    r"'([Tt]) is": r"'\1is",
+    r"'([Tt]) was": r"'\1was",
+    r"([Ww])an na": r"\1anna"
+}
+
 
 # for l in string.ascii_uppercase:
 #     with_start = [ e['name'] for e in elements if e['name'][0] == l ]
@@ -47,6 +63,30 @@ class TVisoTropes(TwitterBot):
                 return title
         return None
 
+
+    def uncontract(self, words):
+        uw = []
+        skipnext = False
+        for i in range(0, len(words) - 1):
+            print(i)
+            if skipnext:
+                skipnext = False
+                continue
+            w1 = words[i]
+            w2 = words[i + 1]
+            for p, s in UNCONTRACT.items():
+                r = re.sub(p, s, w1 + " " + w2)
+                if r != w1 + " " + w2:
+                    print(">! " + r)
+                    uw.append(r)
+                    skipnext = True
+                    break
+            if not skipnext:
+                uw.append(w1)
+        uw.append(words[-1])
+        return uw
+    
+
     def get_isotrope(self):
         title = None
         if 'test_title' in self.cf:
@@ -54,7 +94,11 @@ class TVisoTropes(TwitterBot):
         else:
             title = self.url_title()
         if title:
+            print(title)
             words = word_tokenize(title)
+            print(words)
+            words = self.uncontract(words)
+            print(words)
             if len(words) > 1:
                 tagged = nltk.pos_tag(words)
                 i = 0
@@ -78,10 +122,7 @@ class TVisoTropes(TwitterBot):
         q2 = re.sub(r"`` ", r'"', q1)
         q3 = re.sub(r" '' ", r'" ', q2)
         q4 = re.sub(r" ''", r'"', q3)
-        q5 = re.sub(r" n't ", r"n't ", q4)
-        q6 = re.sub(r" '([a-z]) ", r"'\1 ", q5)
-        q7 = re.sub(r"\b '", r"'", q6)
-        return re.sub(r"\s([.,:;!?])", r"\1", q7)
+        return re.sub(r"\s([.,:;!?])", r"\1", q4)
     
 
     def render(self):
