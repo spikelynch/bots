@@ -12,6 +12,7 @@ UNCONTRACT = {
     r"(\w) 've": r"\1've",
     r"(\w) 'll": r"\1've",
     r"(\w) n't": r"\1n't",
+    r"(\w) 's":  r"\1's",
     r"([cC])an not": r"\1annot",
     r"([Dd]) 'ye": r"\1'ye",
     r"([gG])im me": r"\1imme",
