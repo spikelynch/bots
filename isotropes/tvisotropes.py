@@ -68,7 +68,6 @@ class TVisoTropes(TwitterBot):
         uw = []
         skipnext = False
         for i in range(0, len(words) - 1):
-            print(i)
             if skipnext:
                 skipnext = False
                 continue
@@ -77,7 +76,6 @@ class TVisoTropes(TwitterBot):
             for p, s in UNCONTRACT.items():
                 r = re.sub(p, s, w1 + " " + w2)
                 if r != w1 + " " + w2:
-                    print(">! " + r)
                     uw.append(r)
                     skipnext = True
                     break
@@ -94,11 +92,8 @@ class TVisoTropes(TwitterBot):
         else:
             title = self.url_title()
         if title:
-            print(title)
             words = word_tokenize(title)
-            print(words)
             words = self.uncontract(words)
-            print(words)
             if len(words) > 1:
                 tagged = nltk.pos_tag(words)
                 i = 0
