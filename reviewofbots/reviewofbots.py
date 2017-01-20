@@ -38,6 +38,6 @@ if __name__ == '__main__':
     else:
         tweet = rob.render()
         rob.wait()
-#    rob.post(tweet)
+        rob.post(tweet)
         print(tweet)
 
