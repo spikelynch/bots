@@ -9,5 +9,6 @@ oauth_token_secret:
 files:
  - adjectives.txt
  - places.txt
+ - propernouns.txt
 
 tweet_template: The {} Review Of Books

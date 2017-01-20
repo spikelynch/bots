@@ -5,20 +5,12 @@ from twitterbot import TwitterBot
 
 
 
-def random_word(synsets):
-    synset = random.choice(synsets)
-    lemma = random.choice(synset.lemmas())
-    name = lemma.name()
-    return name.replace('_', ' ')
-
-
 class ReviewOfBots(TwitterBot):
 
     def __init__(self):
         super().__init__()
         self.ap.add_argument('-n', '--number', type=int, default=None, help="Run n times without posting")
         
-
     def loadfile(self, filename):
         with open(filename, 'r') as f:
             lines = f.readlines()
@@ -31,14 +23,9 @@ class ReviewOfBots(TwitterBot):
         
     def render(self):
         w = random.choice(random.choice(self.lists))
-        return self.cf['tweet_template'].format(w.title())
-
-    def dump_nouns(self):
-        self.read_words()
-        for s in self.nouns:
-            print(s.name(), s.definition())
-            for l in s.lemmas():
-                print(l.name())
+        t = w.title()
+        t = t.replace("'S", "’s")
+        return self.cf['tweet_template'].format(t)
 
         
 if __name__ == '__main__':
