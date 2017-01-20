@@ -1,0 +1,13 @@
+
+# config for Talking Bot Blues
+
+api_key:            
+api_secret:         
+oauth_token:        
+oauth_token_secret: 
+
+files:
+ - adjectives.txt
+ - places.txt
+
+tweet_template: The {} Review Of Books
