@@ -1,6 +1,6 @@
 #!/usr/bin/env python3.5
 
-import random, sys
+import random, sys, os
 from twitterbot import TwitterBot
 
 
@@ -12,7 +12,7 @@ class ReviewOfBots(TwitterBot):
         self.ap.add_argument('-n', '--number', type=int, default=None, help="Run n times without posting")
         
     def loadfile(self, filename):
-        with open(filename, 'r') as f:
+        with open(os.path.join(self.cf['dir'], filename), 'r') as f:
             lines = f.readlines()
             return [ l.strip() for l in lines ]
         

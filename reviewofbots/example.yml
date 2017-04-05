@@ -6,6 +6,8 @@ api_secret:
 oauth_token:        
 oauth_token_secret: 
 
+dir: /home/mikelynch/bots/reviewofbots
+
 files:
  - adjectives.txt
  - places.txt
