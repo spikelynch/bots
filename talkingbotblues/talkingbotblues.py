@@ -1,14 +1,14 @@
-#!/usr/bin/env python3.2
+#!/usr/bin/env python3.5
 
 import re, requests, html
-from twitterbot import TwitterBot
+from botclient import Bot
 
 WIKI_RANDOM_URL = 'https://en.wikipedia.org/wiki/Special:Random'
 WIKI_TITLE_RE = '<title>(.*) -'
 
 TWEET_TEMPLATE = 'Talking {} Blues'
 
-class TalkingBotBlues(TwitterBot):
+class TalkingBotBlues(Bot):
 
     def got_the_blues(self):
         title_re = re.compile(self.cf['title_re'])
