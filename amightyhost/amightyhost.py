@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-from twitterbot import TwitterBot
+from botclient import Bot
 import subprocess
 
-class AMightyHost(TwitterBot):
+class AMightyHost(Bot):
 
     def warriors(self):
         cmd = [ self.cf['exe'], self.cf['data'] ]
@@ -13,10 +13,10 @@ class AMightyHost(TwitterBot):
 if __name__ == '__main__':
     amh = AMightyHost()
     amh.configure()
-    tweet = amh.warriors()
-    if tweet:
+    band = amh.warriors()
+    if band:
         amh.wait()
-        amh.post(tweet)
+        amh.post(bands)
     else:
         print("Something went wrong")
 
