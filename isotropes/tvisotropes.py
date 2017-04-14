@@ -3,7 +3,7 @@
 import json, random, string, requests, re, html
 import nltk
 from nltk.tokenize import word_tokenize
-from twitterbot import TwitterBot
+from botclient import Bot
 
 elements = None
 
@@ -32,7 +32,7 @@ UNCONTRACT = {
 
 
 
-class TVisoTropes(TwitterBot):
+class TVisoTropes(Bot):
 
     def read_elements(self):
         ej = None
