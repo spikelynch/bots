@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from twitterbot import TwitterBot
+from botclient import Bot
 import torchrnn
 import sys, datetime, time, random, os.path, re, math
 
@@ -9,7 +9,7 @@ MAX_REPEATS = 10
 
 START_TRIM = 100
 
-class Usylessly(TwitterBot):
+class Usylessly(Bot):
     def __init__(self):
         super().__init__()
         self.ap.add_argument('-e', '--episode', type=str, default=None, help="Config file")

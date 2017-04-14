@@ -1,11 +1,11 @@
 #!/usr/bin/env python3.5
 
 import random, sys, os
-from twitterbot import TwitterBot
+from botclient import Bot
 
 
 
-class ReviewOfBots(TwitterBot):
+class ReviewOfBots(Bot):
 
     def __init__(self):
         super().__init__()

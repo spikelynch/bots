@@ -2,7 +2,7 @@
 
 from nltk.corpus import wordnet as wn
 import random, sys, re
-from twitterbot import TwitterBot
+from botclient import Bot
 
 # Synsets which are offensive but not flagged as such in the
 # WordNet definition
@@ -45,7 +45,7 @@ def is_not_slur(synset):
     else:
         return True
 
-class Quest(TwitterBot):
+class Quest(Bot):
     def __init__(self):
         super().__init__()
         self.ap.add_argument('-t', '--test', action='store_true', help="Don't post, dump list of all nouns to test for bad words")
