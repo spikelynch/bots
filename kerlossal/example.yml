@@ -5,5 +5,5 @@ api_secret:
 oauth_token:
 oauth_token_secret:
 
-exe: /home/mikelynch/.local/bin/kerlossal-exe
-data: /home/mikelynch/bots/kerlossal/data/
+exe: /Users/mike/.local/bin/kerlossal
+data: /Users/mike/Desktop/Personal/kerlossal/data/

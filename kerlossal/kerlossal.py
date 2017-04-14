@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-from twitterbot import TwitterBot
+from botclient import Bot
 import subprocess
 
-class Kerlossal(TwitterBot):
+class Kerlossal(Bot):
 
     def artwork(self):
         cmd = [ self.cf['exe'], self.cf['data'] ]
