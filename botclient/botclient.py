@@ -5,7 +5,7 @@ bot - a basic Bot class
 from twitterbot import TwitterBot
 from mastodonbot import MastodonBot
 
-import argparse, yaml, pystache, random, time
+import argparse, yaml, pystache, random, time, sys
 
 SERVICES = {
     'Twitter': TwitterBot,
@@ -71,13 +71,13 @@ reason, this calls sys.exit().
         if not self.cf:
             print("Config error")
             sys.exit(-1)
-        fields = self.auth_cf_fields
-        if self.mandatory_fields:
-            fields += self.mandatory_fields
+        fields = self.api.auth_cf_fields
+        if mandatory_fields:
+            fields += mandatory_fields
         cf_missing = False
         for field in fields:
             if not field in self.cf:
-                print("Missing mandatory field: %s" % key)
+                print("Missing mandatory field: %s" % field)
                 cf_missing = True
         if cf_missing:
             sys.exit(-1)
@@ -95,7 +95,8 @@ reason, this calls sys.exit().
             print("Dry run: not posting")
             print("Status: %s" % text)
             return True
-        return self.api.post(text)
+        if self.api.auth(self.cf):
+            return self.api.post(text)
     
     def post_image(self, imgfile, text):
         """Post a tweet with one attached image

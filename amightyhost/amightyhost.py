@@ -16,7 +16,7 @@ if __name__ == '__main__':
     band = amh.warriors()
     if band:
         amh.wait()
-        amh.post(bands)
+        amh.post(band)
     else:
         print("Something went wrong")
 

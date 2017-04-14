@@ -20,16 +20,14 @@ Attributes:
     twitter (Twython): the Twython object used for the actual post
 """
 
-    def __init__(self, bot):
+    def __init__(self):
         self.char_limit = 140
         self.char_limit_img = 130
         self.auth_cf_fields = [ 'api_key', 'api_secret', 'oauth_token', 'oauth_token_secret' ]
-        self.cf = bot.cf
     
-    
-    def auth(self):
+    def auth(self, cf):
         """Authenticates against Twitter and returns true if successful"""
-        self.twitter = Twython(self.cf['api_key'], self.cf['api_secret'], self.cf['oauth_token'], self.cf['oauth_token_secret'])
+        self.twitter = Twython(cf['api_key'], cf['api_secret'], cf['oauth_token'], cf['oauth_token_secret'])
         if self.twitter:
             return True
         else:
@@ -40,11 +38,8 @@ Attributes:
         if len(tweet) > self.char_limit:
             print("Tweet text is over %d chars" % self.char_limit)
             return False
-        if self.auth():
-            self.twitter.update_status(status=tweet)
-            return True
-        else:
-            return False
+        self.twitter.update_status(status=tweet)
+        return True
     
     def post_image(self, imgfile, tweet):
         """Post a tweet with one attached image
@@ -59,13 +54,10 @@ Returns:
         if len(tweet) > self.char_limit_img:
             print("Tweet text is over %d chars" % self.char_limit_img)
             return False
-        if self.auth():
-            print("Posting %s" % img)
-            with open(img, 'rb') as ih:
-                response = self.twitter.upload_media(media=ih)
-                print("Tweet: %s" % tweet)
-                out = self.twitter.update_status(status=tweet, media_ids=response['media_id'])
-                return True
-        else:
-            return False
+        print("Posting %s" % img)
+        with open(img, 'rb') as ih:
+            response = self.twitter.upload_media(media=ih)
+            print("Tweet: %s" % tweet)
+            out = self.twitter.update_status(status=tweet, media_ids=response['media_id'])
+            return True
         
