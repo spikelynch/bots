@@ -2,7 +2,7 @@
 
 from nltk.corpus import wordnet as wn
 import random, sys, re
-from twitterbot import TwitterBot
+from botclient import Bot
 
 # Synsets which are offensive but not flagged as such in the
 # WordNet definition
@@ -15,6 +15,27 @@ def random_word(synsets):
     name = lemma.name()
     return name.replace('_', ' ')
 
+def is_transitive(lemma):
+    ln = lemma.name()
+    for fs in lemma.frame_strings():
+        frame = fs.split(' ')
+        if frame[-1] != ln and frame[-1] != 'PP':
+            return True
+    return False
+
+def random_transitive_verb(verbs):
+    lemma = None
+    while not lemma:
+        v = random.choice(verbs)
+        lemmas = [ l for l in v.lemmas() if is_transitive(l) ]
+        if lemmas:
+            lemma = random.choice(lemmas) 
+    name = lemma.name()
+    return name.replace('_', ' ')
+
+
+
+
 def is_not_slur(synset):
     if synset.name() in SLUR_SS:
         return False
@@ -24,7 +45,7 @@ def is_not_slur(synset):
     else:
         return True
 
-class Quest(TwitterBot):
+class Quest(Bot):
     def __init__(self):
         super().__init__()
         self.ap.add_argument('-t', '--test', action='store_true', help="Don't post, dump list of all nouns to test for bad words")
@@ -47,7 +68,7 @@ class Quest(TwitterBot):
                 sys.exit(-1)
         else:
             self.noun = random_word(self.nouns).upper()
-        self.verb = random_word(self.verbs).upper()
+        self.verb = random_transitive_verb(self.verbs).upper()
 
     def dump_nouns(self):
         self.read_words()

@@ -1,0 +1,12 @@
+
+Take a random TVTrope -
+
+http://tvtropes.org/pmwiki/pmwiki.php/Main/ManBitesMan
+
+find a noun, and substitute a random chemical element
+
+Man Bites Magnesium
+
+Affably Erbium
+
+use the nltk pos-tagger
