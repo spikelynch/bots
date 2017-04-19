@@ -3,7 +3,7 @@
 BHOME="/home/pi/bots"
 UHOME="$BHOME/usylessly"
 
-export PYTHONPATH="$BHOME/twitterbot:$PYTHONPATH"
+export PYTHONPATH="$BHOME/botclient:$PYTHONPATH"
 export TORCH_RNN="/home/pi/torch/torch-rnn"
 export TORCH_TH="/home/pi/torch/install/bin/th"
 
