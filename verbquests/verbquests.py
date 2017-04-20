@@ -19,7 +19,7 @@ def is_transitive(lemma):
     ln = lemma.name()
     for fs in lemma.frame_strings():
         frame = fs.split(' ')
-        if frame[-1] != ln and frame[-1] != 'PP':
+        if frame[-1] == 'somebody' or frame[-1] == 'something':
             return True
     return False
 
