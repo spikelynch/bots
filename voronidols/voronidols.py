@@ -59,6 +59,7 @@ def sparse(w, h, algorithm, points, filename):
     scale = '{}%'.format(100 / SUPERSCALE) 
     im = [ 'convert', '-size', geom, '-scale', scale, 'xc:', '-sparse-color', algorithm, points, filename ]
     cmd = ' '.join(im)
+    print(cmd)
     rv = subprocess.run(cmd, shell=True)
     return (not rv)
 
@@ -72,12 +73,12 @@ def voronidol(w, h, npoints, symmetry, ncols, cols, output, **kwargs):
     else:
         alg = 'Voronoi'
     if 'blgorithm' in kwargs:
-        sparse(alg, points, 'a1.jpg')
-        sparse(kwargs.blgorithm, points, 'b1.jpg')
+        sparse(w, h, alg, points, 'a1.jpg')
+        sparse(w, h, kwargs.blgorithm, points, 'b1.jpg')
         merge = [ 'composite', '-blend', '50', 'a1.jpg', 'b1.jpg', output]
         rv = subprocess.run(' '.join(merge), shell=True)
     else:
-        sparse(alg, points, output)
+        sparse(w, h, alg, points, output)
 
     if 'gradient' in kwargs:
         grad = [ 'convert', '-size', geometry, kwargs.gradient, 'fade.jpg' ]

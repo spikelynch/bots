@@ -5,5 +5,5 @@ api_secret:
 oauth_token:
 oauth_token_secret:
 
-exe: /home/mikelynch/.local/bin/amightyhost-exe
-data: /home/mikelynch/bots/amightyhost/data/
+exe: /Users/mike/.local/bin/amightyhost-exe
+data: /Users/mike/Desktop/Personal/amightyhost/data/
