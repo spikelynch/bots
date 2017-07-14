@@ -5,7 +5,8 @@ import random, subprocess, argparse, itertools
 COLORFILE = './rgb.txt'
 NC = 4
 NP = 20
-SUPERSCALE = None
+SCALE = 8
+PSCALE = 4
 
 def mkcolours(cl=None, mono=False):
     colours = []
@@ -26,9 +27,9 @@ def mkcolours(cl=None, mono=False):
                         colours.append(parts[3])
     return colours
 
-def randpt(w, h):
-    x = random.randint(0, w - 1)
-    y = random.randint(0, h - 1)
+def randpt():
+    x = random.uniform(0, 1)
+    y = random.uniform(0, 1)
     return (x, y)
 
 def pt(x, y, c):
@@ -38,27 +39,37 @@ def pt(x, y, c):
 def makepts(w, h, cs, n, s):
     pts = []
     for c in itertools.cycle(cs):
-        x, y = randpt(w, h)
-        pts.append(pt(x, y, c)) 
+        x, y = randpt()
+        pts.append((x, y, c)) 
         if s == 'vertical' or s == 'both':
-            pts.append(pt(w - x, y, c))
+            pts.append((1 - x, y, c))
         if s == 'horizontal' or s == 'both':
-            pts.append(pt(x, h - y, c))
+            pts.append((x, 1 - y, c))
         if s == 'both' or s == 'rot2' or s == 'rot4':
-            pts.append(pt(w - x, h - y, c))
+            pts.append((1 - x, 1 - y, c))
         if s == 'rot4':
-            pts.append(pt(y, h - x, c))
-            pts.append(pt(w - y, x, c))
+            pts.append((y, 1 - x, c))
+            pts.append((1 - y, x, c))
         if len(pts) >= n:
             break
-    return "'" + ' '.join(pts) + "'"
+    spts = []
+    x0 = w * SCALE / 2
+    y0 = h * SCALE / 2
+    xk = w * PSCALE
+    yk = h * PSCALE
+    for x, y, c in pts:
+        u = x0 + xk * (x - .5)
+        v = y0 + yk * (y - .5)
+        spts.append(pt(u, v, c))
+    return "'" + ' '.join(spts) + "'"
 
 
 def sparse(w, h, algorithm, points, filename):
-    geom = '{}x{}'.format(w * 10, h * 10)
-    im = [ 'convert', '-size', geom, 'xc:', '-sparse-color', algorithm, points, '-scale', '10%', filename ]
+    geom = '{}x{}'.format(w * SCALE, h * SCALE)
+    scale = '{}%'.format(100 / SCALE)
+    im = [ 'convert', '-size', geom, 'xc:', '-sparse-color', algorithm, points, '-scale', scale, filename ]
     cmd = ' '.join(im)
-    print(cmd)
+    #print(cmd)
     rv = subprocess.run(cmd, shell=True)
     return (not rv)
 
