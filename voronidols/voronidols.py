@@ -5,7 +5,7 @@ import random, subprocess, argparse, itertools
 COLORFILE = './rgb.txt'
 NC = 4
 NP = 20
-SUPERSCALE = 4
+SUPERSCALE = None
 
 def mkcolours(cl=None, mono=False):
     colours = []
@@ -55,9 +55,8 @@ def makepts(w, h, cs, n, s):
 
 
 def sparse(w, h, algorithm, points, filename):
-    geom = '{}x{}'.format(w * SUPERSCALE, h * SUPERSCALE)
-    scale = '{}%'.format(100 / SUPERSCALE) 
-    im = [ 'convert', '-size', geom, '-scale', scale, 'xc:', '-sparse-color', algorithm, points, filename ]
+    geom = '{}x{}'.format(w * 10, h * 10)
+    im = [ 'convert', '-size', geom, 'xc:', '-sparse-color', algorithm, points, '-scale', '10%', filename ]
     cmd = ' '.join(im)
     print(cmd)
     rv = subprocess.run(cmd, shell=True)
