@@ -70,7 +70,7 @@ def sparse(w, h, algorithm, points, filename):
     im = [ 'convert', '-size', geom, 'xc:', '-sparse-color', algorithm, points, '-scale', scale, filename ]
     cmd = ' '.join(im)
     #print(cmd)
-    rv = subprocess.run(cmd, shell=True)
+    rv = subprocess.call(cmd, shell=True)
     return (not rv)
 
 
@@ -111,22 +111,27 @@ blur: blur resultant image
         sparse(w, h, alg, points, 'a1.png')
         sparse(w, h, kwargs['blgorithm'], points, 'b1.png')
         merge = [ 'composite', '-blend', '50', 'a1.png', 'b1.png', output]
-        rv = subprocess.run(' '.join(merge), shell=True)
+        rv = subprocess.call(' '.join(merge), shell=True)
     else:
         sparse(w, h, alg, points, output)
 
     if 'gradient' in kwargs:
         grad = [ 'convert', '-size', geometry, kwargs['gradient'], 'fade.png' ]
-        subprocess.run(' '.join(grad), shell=True)
+        subprocess.call(' '.join(grad), shell=True)
         merge = [ 'composite', '-blend', '50', 'fade.png', output, output ]
-        subprocess.run(' '.join(merge), shell=True)
+        subprocess.call(' '.join(merge), shell=True)
 
     if 'blur' in kwargs:
         blur = [ 'convert', '-blur', kwargs['blur'], output, output ]
-        rv = subprocess.run(' '.join(blur), shell=True)
+        rv = subprocess.call(' '.join(blur), shell=True)
 
     ensure_col = [ 'convert', output, '-colorspace', 'rgb', '-type', 'truecolor', output ]
-    rv = subprocess.run(' '.join(ensure_col), shell=True)
+    rv = subprocess.call(' '.join(ensure_col), shell=True)
+    print(rv)
+    if rv:
+        return None
+    else:
+        return output
 
 
 if __name__ == "__main__":
@@ -160,4 +165,3 @@ if __name__ == "__main__":
     
     voronidol(args.width, args.height, args.points, args.symmetry, args.colours, colours, args.output, **kw)
     
-#def voronidol(w, h, npoints, symmetry, ncols, cols, output, **kwargs):

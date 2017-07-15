@@ -54,8 +54,8 @@ Returns:
         if len(tweet) > self.char_limit_img:
             print("Tweet text is over %d chars" % self.char_limit_img)
             return False
-        print("Posting %s" % img)
-        with open(img, 'rb') as ih:
+        print("Posting %s" % imgfile)
+        with open(imgfile, 'rb') as ih:
             response = self.twitter.upload_media(media=ih)
             print("Tweet: %s" % tweet)
             out = self.twitter.update_status(status=tweet, media_ids=response['media_id'])
