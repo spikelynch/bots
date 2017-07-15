@@ -2,19 +2,19 @@
 
 import random, subprocess, argparse, itertools
 
-COLORFILE = './rgb.txt'
+COLOURFILE = './rgb.txt'
 NC = 4
 NP = 20
 SCALE = 8
 DFRAME = .5
 
-def mkcolours(cl=None, mono=False):
+def mkcolours(cl=None, colourfile=COLOURFILE, mono=False):
     colours = []
 
     if cl:
         colours = cl.split(',')
     else:
-        with open(COLORFILE, 'r') as cf:
+        with open(colourfile, 'r') as cf:
             for line in cf:
                 if line[0] == '#':
                     next

@@ -1,0 +1,18 @@
+
+# config for Voronidols
+
+api_key:            
+api_secret:         
+oauth_token:        
+oauth_token_secret: 
+
+symmetry:
+ - vertical
+width: 512
+height: 512
+points_min: 5
+points_max: 80
+colours_min: 5
+colours_max: 10
+colours_file: ./rgb.txt
+working: ./

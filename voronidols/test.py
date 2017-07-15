@@ -11,7 +11,7 @@ def random_voro(f):
     c = random.choice(list(range(5, 10)))
     k = random.uniform(.2, 1)
     colours = voronidols.mkcolours()
-    return voronidols.voronidol(512, 512, p, s, c, colours, f, blgorithm="shepards")
+    return voronidols.voronidol(640, 480, p, s, c, colours, f)
 
 
 
