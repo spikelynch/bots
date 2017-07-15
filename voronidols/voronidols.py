@@ -6,7 +6,7 @@ COLORFILE = './rgb.txt'
 NC = 4
 NP = 20
 SCALE = 8
-PSCALE = 4
+DFRAME = .5
 
 def mkcolours(cl=None, mono=False):
     colours = []
@@ -36,7 +36,7 @@ def pt(x, y, c):
     return "{},{} {}".format(x, y, c)
 
 
-def makepts(w, h, cs, n, s):
+def makepts(w, h, f, cs, n, s):
     pts = []
     for c in itertools.cycle(cs):
         x, y = randpt()
@@ -55,8 +55,8 @@ def makepts(w, h, cs, n, s):
     spts = []
     x0 = w * SCALE / 2
     y0 = h * SCALE / 2
-    xk = w * PSCALE
-    yk = h * PSCALE
+    xk = w * SCALE * f
+    yk = h * SCALE * f
     for x, y, c in pts:
         u = x0 + xk * (x - .5)
         v = y0 + yk * (y - .5)
@@ -75,30 +75,55 @@ def sparse(w, h, algorithm, points, filename):
 
 
 def voronidol(w, h, npoints, symmetry, ncols, cols, output, **kwargs):
+    """Make a voronidol image.
+
+Positional args- 
+
+w: width
+h: height
+npoints: number of (sets of) points
+symmetry: vertical, horizontal, both, rot2 or rot4
+ncols: number of colours to pick
+cols: list of colours to pick from
+output: output file
+
+Keyword args-
+
+frame: ratio of drawing size to canvas size, default is .5
+algorithm: ImageMagick algorithm (voronoi, shepards, bayes)
+blgorithm: Second IM algorithm to superimpose
+gradient: IM gradient to layer
+blur: blur resultant image
+"""
+    
     geometry = "{}x{}".format(w, h)
     cs = random.sample(cols, ncols)
-    points = makepts(w, h, cs, npoints, symmetry)
+    if 'frame' in kwargs:
+        frame = kwargs['frame']
+    else:
+        frame = DFRAME
+    points = makepts(w, h, frame, cs, npoints, symmetry)
     if 'algorithm' in kwargs:
-        alg = kwargs.algorithm
+        alg = kwargs['algorithm']
     else:
         alg = 'Voronoi'
     if 'blgorithm' in kwargs:
-        sparse(w, h, alg, points, 'a1.jpg')
-        sparse(w, h, kwargs.blgorithm, points, 'b1.jpg')
-        merge = [ 'composite', '-blend', '50', 'a1.jpg', 'b1.jpg', output]
+        sparse(w, h, alg, points, 'a1.png')
+        sparse(w, h, kwargs['blgorithm'], points, 'b1.png')
+        merge = [ 'composite', '-blend', '50', 'a1.png', 'b1.png', output]
         rv = subprocess.run(' '.join(merge), shell=True)
     else:
         sparse(w, h, alg, points, output)
 
     if 'gradient' in kwargs:
-        grad = [ 'convert', '-size', geometry, kwargs.gradient, 'fade.jpg' ]
+        grad = [ 'convert', '-size', geometry, kwargs['gradient'], 'fade.png' ]
         subprocess.run(' '.join(grad), shell=True)
-        merge = [ 'composite', '-blend', '50', 'fade.jpg', output, output ]
+        merge = [ 'composite', '-blend', '50', 'fade.png', output, output ]
         subprocess.run(' '.join(merge), shell=True)
 
     if 'blur' in kwargs:
-        blur = [ 'convert', '-blur', kwargs.blur, output, output ]
-        rv = subprocess.run(' '.join(kwargs.blur), shell=True)
+        blur = [ 'convert', '-blur', kwargs['blur'], output, output ]
+        rv = subprocess.run(' '.join(blur), shell=True)
 
     ensure_col = [ 'convert', output, '-colorspace', 'rgb', '-type', 'truecolor', output ]
     rv = subprocess.run(' '.join(ensure_col), shell=True)

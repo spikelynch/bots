@@ -2,20 +2,21 @@
 
 import voronidols, random
 
-SYMM = [ 'vertical', 'horizontal', 'both', 'rot2', 'rot4' ]
+SYMM = [ 'vertical' ] #, 'horizontal', 'both', 'rot2', 'rot4' ]
 
 
 def random_voro(f):
     s = random.choice(SYMM)
     p = random.choice(list(range(4, 80)))
     c = random.choice(list(range(5, 10)))
+    k = random.uniform(.2, 1)
     colours = voronidols.mkcolours()
-    return voronidols.voronidol(512, 512, p, s, c, colours, f)
+    return voronidols.voronidol(512, 512, p, s, c, colours, f, blgorithm="shepards")
 
 
 
 
-for i in range(50):
-    f = 'voro{}.jpg'.format(i)
+for i in range(5):
+    f = 'voro{}.png'.format(i)
     random_voro(f)
 
