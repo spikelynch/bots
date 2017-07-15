@@ -43,9 +43,7 @@ Returns:
         print("Posting %s" % imgfile)
         image = self.mast.media_post(imgfile)
         if image:
-            print(image)
             if not text:
                 text = '.'
             post = self.mast.status_post(text, media_ids = [ image ])
-            print(post)
         
