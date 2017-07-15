@@ -30,7 +30,7 @@ class MastodonBot(object):
         status = self.mast.toot(toot)
         return True
     
-    def post_image(self, imgfile, mimetype):
+    def post_image(self, imgfile, text):
         """Post a toot with one attached image
 
 Args:
@@ -40,7 +40,12 @@ Args:
 Returns:
     status (bool): True if the post was successful
        """
-        print("Posting %s" % img)
-        self.mast.media_post(imgfile, mimetype)
-        return True
+        print("Posting %s" % imgfile)
+        image = self.mast.media_post(imgfile)
+        if image:
+            print(image)
+            if not text:
+                text = '.'
+            post = self.mast.status_post(text, media_ids = [ image ])
+            print(post)
         
