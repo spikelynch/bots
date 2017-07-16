@@ -3,6 +3,8 @@
 import random, subprocess, argparse, itertools
 
 COLOURFILE = './rgb.txt'
+XMAX = 512
+YMAX = 512
 NC = 4
 NP = 20
 SCALE = 8
@@ -151,7 +153,10 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
 
-    colours = mkcolours(args.list, args.monochrome)
+    if args.list:
+        colours = mkcolours(list=args.list, mono=args.monochrome)
+    else:
+        colours = mkcolours(colourfile=COLOURFILE, mono=args.monochrome)
     
     kw = {}
     if args.blur:
