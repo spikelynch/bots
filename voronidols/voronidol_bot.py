@@ -15,9 +15,10 @@ class Voronidols(Bot):
         s = random.choice(self.cf['symmetry'])
         p = random.choice(list(range(self.cf['points_min'], self.cf['points_max'])))
         c = random.choice(list(range(self.cf['colours_min'], self.cf['colours_max'])))
+        fr = random.uniform(self.cf['frame_min'], self.cf['frame_max'])
         w = self.cf['width']
         h = self.cf['height']
-        return voronidol(w, h, p, s, c, colours, outfile)
+        return voronidol(w, h, p, s, c, colours, outfile, frame=fr)
 
         
 if __name__ == '__main__':

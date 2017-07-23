@@ -14,5 +14,7 @@ points_min: 5
 points_max: 80
 colours_min: 5
 colours_max: 10
+frame_min: 0.4
+frame_max: 0.8
 colours_file: ./rgb.txt
 working: ./working/
