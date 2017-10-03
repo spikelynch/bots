@@ -113,7 +113,8 @@ Returns:
             print("Imagefile: %s" % imgfile)
             print("Text: %s" % text)
             return True
-        return self.api.post_image(img, text)
+        if self.api.auth(self.cf):
+            return self.api.post_image(imgfile, text)
         
     def wait(self):
         """Wait for a random interval

@@ -7,3 +7,4 @@ oauth_token_secret:
 
 exe: /Users/mike/.local/bin/kerlossal
 data: /Users/mike/Desktop/Personal/kerlossal/data/
+max_length: 500

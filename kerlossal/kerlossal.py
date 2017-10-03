@@ -7,6 +7,8 @@ class Kerlossal(Bot):
 
     def artwork(self):
         cmd = [ self.cf['exe'], self.cf['data'] ]
+        if 'max_length' in self.cf:
+            cmd.append(str(self.cf['max_length']))
         result = subprocess.check_output(cmd)
         return result[:-1]
         
