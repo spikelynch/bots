@@ -146,7 +146,7 @@ if __name__ == "__main__":
     parser.add_argument('-e', '--monochrome', action='store_true', help='grayscale only')
     parser.add_argument('-n', '--points', type=int, default=NP, help='number of points')
     parser.add_argument('-u', '--blur', type=str, help='blur')
-    parser.add_argument('-s', '--symmetry', type=str, default="vertical", help="symmetry (vertical, horizontal, both, rot2, rot4)")
+    parser.add_argument('-s', '--symmetry', type=str, default="vertical", help="symmetry (vertical, horizontal, both, rot2, rot4, none)")
     parser.add_argument('-g', '--gradient', type=str, default=None, help='overlay gradient')
     parser.add_argument('-l', '--list', type=str, default=None, help="comma-separated list of colours")
     parser.add_argument('output', type=str, help='output file')

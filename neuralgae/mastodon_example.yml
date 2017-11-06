@@ -1,0 +1,13 @@
+# Config for neuralgae's Mastodon version
+
+client_id: 
+client_secret: 
+access_token: 
+base_url: https://botsin.space
+
+textfile: tweets.txt
+lastfile: last.txt
+index_re: "(img\\d+\\.jpg): (.*)"
+images: ./Sample
+
+

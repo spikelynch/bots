@@ -27,6 +27,7 @@ def generate_lines(model, temperature=1.0, n=1, length=DEFAULT_LINE):
     lines = []
     while len(lines) < n:
         text = run_sample(model, temperature, '', length * SAMPLE_SIZE).decode('utf-8')
+        print(">>> {}".format(text))
         ls = text.split('\n')[1:]
         for l in ls:
             if not l or len(l) > length:
