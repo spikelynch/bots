@@ -21,8 +21,8 @@ Attributes:
 """
 
     def __init__(self):
-        self.char_limit = 140
-        self.char_limit_img = 130
+        self.char_limit = 280
+        self.char_limit_img = 270
         self.auth_cf_fields = [ 'api_key', 'api_secret', 'oauth_token', 'oauth_token_secret' ]
     
     def auth(self, cf):

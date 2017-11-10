@@ -1,0 +1,11 @@
+# Config file for neuralgae posting bot
+
+api_key: 
+api_secret: 
+oauth_token: 
+oauth_token_secret: 
+images: Sample/
+textfile: tweets.txt
+index_re: "(img\\d+\\.jpg): (.*)"
+lastfile: last_twet.txt
+

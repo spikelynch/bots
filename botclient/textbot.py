@@ -2,9 +2,9 @@
 
 import os.path
 
-from twitterbot import TwitterBot
+from botclient import Bot
 
-class TextBot(TwitterBot):
+class TextBot(Bot):
     """
 Generic filereader bot.
 
@@ -33,6 +33,7 @@ lastfile
                 for line in bf:
                     if line == last:
                         nextline = next(bf)
+            print(nextline)
         if nextline:
             self.write_last(nextline)
         return nextline
