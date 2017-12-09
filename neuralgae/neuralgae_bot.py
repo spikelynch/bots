@@ -1,11 +1,16 @@
 #!/usr/bin/env python3.5
 
-from botclient import PictureBot
+from picturebot import PictureBot
+
 
         
 if __name__ == '__main__':
     bot = PictureBot()
     bot.configure()
     ( image, text ) = bot.get_next()
-    bot.post_image(image, text)
+    if text:
+        text = text.replace('/','\n')
+        bot.post_image(image, text)
+    else:
+        print("Couldn't find line to post")
 
