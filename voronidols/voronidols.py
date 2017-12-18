@@ -10,11 +10,11 @@ NP = 20
 SCALE = 8
 DFRAME = .5
 
-def mkcolours(cl=None, colourfile=COLOURFILE, mono=False):
+def mkcolours(colourlist=None, colourfile=COLOURFILE, mono=False):
     colours = []
 
-    if cl:
-        colours = cl.split(',')
+    if colourlist:
+        colours = colourlist.split(',')
     else:
         with open(colourfile, 'r') as cf:
             for line in cf:
@@ -154,7 +154,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.list:
-        colours = mkcolours(list=args.list, mono=args.monochrome)
+        colours = mkcolours(colourfile=args.list, mono=args.monochrome)
     else:
         colours = mkcolours(colourfile=COLOURFILE, mono=args.monochrome)
     
