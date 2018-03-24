@@ -1,0 +1,61 @@
+255 250 250		snow
+240 255 240		honeydew
+255 228 225		MistyRose
+  0 100   0		DarkGreen
+143 188 143		DarkSeaGreen
+152 251 152		PaleGreen
+  0 255   0		green
+ 50 205  50		LimeGreen
+ 34 139  34		ForestGreen
+188 143 143		RosyBrown
+205  92  92		IndianRed
+178  34  34		firebrick
+165  42  42		brown
+250 128 114		salmon
+240 128 128		LightCoral
+255   0   0		red
+255 250 250		snow1
+238 233 233		snow2
+205 201 201		snow3
+139 137 137		snow4
+240 255 240		honeydew1
+224 238 224		honeydew2
+193 205 193		honeydew3
+131 139 131		honeydew4
+255 228 225		MistyRose1
+238 213 210		MistyRose2
+205 183 181		MistyRose3
+193 255 193		DarkSeaGreen1
+180 238 180		DarkSeaGreen2
+155 205 155		DarkSeaGreen3
+105 139 105		DarkSeaGreen4
+154 255 154		PaleGreen1
+144 238 144		PaleGreen2
+124 205 124		PaleGreen3
+ 84 139	 84		PaleGreen4
+  0 255	  0		green1
+  0 238	  0		green2
+  0 205	  0		green3
+  0 139	  0		green4
+255 193 193		RosyBrown1
+238 180 180		RosyBrown2
+205 155 155		RosyBrown3
+139 105 105		RosyBrown4
+255 106 106		IndianRed1
+238  99	 99		IndianRed2
+205  85	 85		IndianRed3
+139  58	 58		IndianRed4
+255  48	 48		firebrick1
+238  44	 44		firebrick2
+205  38	 38		firebrick3
+139  26	 26		firebrick4
+255  64	 64		brown1
+238  59	 59		brown2
+205  51	 51		brown3
+139  35	 35		brown4
+255   0	  0		red1
+238   0	  0		red2
+205   0	  0		red3
+139   0	  0		red4
+139   0   0		DarkRed
+144 238 144		LightGreen
