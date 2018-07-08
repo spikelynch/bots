@@ -1,9 +1,8 @@
 #!/bin/bash
 
-
-NEUHOME="/Users/mike/Desktop/Personal/bots/neuralgae"
-BCHOME="/Users/mike/Desktop/Personal/bots/botclient"
+NEUHOME="/home/mikelynch/bots/neuralgae/"
+BCHOME="/home/mikelynch/bots/botclient"
 
 export PYTHONPATH="$BCHOME:$PYTHONPATH"
 
-python ${BCHOME}/picturebot.py -d -c ${NEUHOME}/config.yml
+/usr/local/bin/python3.5 ${NEUHOME}/neuralgae_bot.py -c ${NEUHOME}/twitter.yml
