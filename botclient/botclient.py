@@ -88,17 +88,18 @@ reason, this calls sys.exit().
         return pyr.render(self)
 
 
-    
-    def post(self, text):
+    def post(self, text, options=None):
         """Post a string, or write it to stdout if we're dry-run"""
         if self.args.dry_run:
             print("Dry run: not posting")
             print("Status: %s" % text)
+            if options:
+                print("Options: %s" % options)
             return True
         if self.api.auth(self.cf):
-            return self.api.post(text)
+            return self.api.post(text, options)
     
-    def post_image(self, imgfile, text):
+    def post_image(self, imgfile, text, options=None):
         """Post a tweet with one attached image
 
 Args:
@@ -112,9 +113,11 @@ Returns:
             print("Dry run: not posting")
             print("Imagefile: %s" % imgfile)
             print("Text: %s" % text)
+            if options:
+                print("Options: %s" % options)
             return True
         if self.api.auth(self.cf):
-            return self.api.post_image(imgfile, text)
+            return self.api.post_image(imgfile, text, options)
         
     def wait(self):
         """Wait for a random interval
