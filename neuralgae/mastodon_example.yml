@@ -10,4 +10,4 @@ lastfile: last.txt
 index_re: "(img\\d+\\.jpg): (.*)"
 images: ./Sample
 
-
+content_warning: "neural net imagery bot: {}"
