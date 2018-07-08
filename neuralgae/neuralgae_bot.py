@@ -15,7 +15,7 @@ if __name__ == '__main__':
     ( image, text ) = bot.get_next()
     if text:
         text = text.replace('/','\n')
-        if bot.cf["content_warning"]:
+        if "content_warning" in bot.cf:
             cw = build_content_warning(bot.cf["content_warning"], text)
             bot.post_image(image, text, { "spoiler_text": cw, "sensitive": True })
         else:
