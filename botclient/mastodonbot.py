@@ -49,5 +49,8 @@ Returns:
         if image:
             if not text:
                 text = '.'
-            post = self.mast.status_post(text, media_ids=[ image ], **options)
-        
+            if options:
+                post = self.mast.status_post(text, media_ids=[ image ], **options)
+            else:
+                post = self.mast.status_post(text, media_ids=[ image ])
+
