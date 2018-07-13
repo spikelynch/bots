@@ -18,7 +18,10 @@ if __name__ == '__main__':
     band = amh.warriors()
     if band:
         amh.wait()
-        amh.post(band)
+        options = {}
+        if 'content_warning' in amh.cf:
+            options['spoiler_text'] = amh.cf['content_warning']
+        amh.post(band, options)
     else:
         print("Something went wrong")
 

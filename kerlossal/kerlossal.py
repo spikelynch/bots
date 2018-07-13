@@ -18,7 +18,10 @@ if __name__ == '__main__':
     tweet = k.artwork()
     if tweet:
         k.wait()
-        k.post(tweet)
+        options = {}
+        if 'content_warning' in k.cf:
+            options['spoiler_text'] = k.cf['content_warning']
+        k.post(tweet, options)
     else:
         print("Something went wrong")
 
