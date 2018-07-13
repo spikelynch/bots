@@ -30,7 +30,14 @@ if __name__ == '__main__':
     text = iconoci(random.randrange(3, 12))
     if vorofile:
         bot.wait()
-        bot.post_image(vorofile, text)
+        options = {}
+        if 'content_warning' in bot.cf:
+            options['spoiler_text'] = bot.cf['content_warning'].format(text)
+        if "description" in bot.cf:
+            options['description'] = bot.cf['description'].format(text)
+        if options: 
+            options["sensitive"] = True
+        bot.post_image(vorofile, text, options)
     else:
         print("Something went wrong")
 
