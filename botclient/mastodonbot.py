@@ -45,7 +45,11 @@ Returns:
     status (bool): True if the post was successful
        """
         print("Posting %s" % imgfile)
-        image = self.mast.media_post(imgfile)
+        if 'description' in options:
+            image = self.mast.media_post(imgfile, description=options['description'])
+            del options['description']
+        else
+            image = self.mast.media_post(imgfile)
         if image:
             if not text:
                 text = '.'
