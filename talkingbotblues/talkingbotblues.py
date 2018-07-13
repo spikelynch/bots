@@ -39,7 +39,10 @@ if __name__ == '__main__':
     tweet = bot.got_the_blues()
     if tweet:
         bot.wait()
-        bot.post(tweet)
+        options = {}
+        if 'content_warning' in bot.cf:
+            options['spoiler_text'] = bot.cf['content_warning']
+        bot.post(tweet, options)
     else:
         print("Something went wrong")
 

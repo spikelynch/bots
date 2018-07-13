@@ -33,7 +33,6 @@ lastfile
                 for line in bf:
                     if line == last:
                         nextline = next(bf)
-            print(nextline)
         if nextline:
             self.write_last(nextline)
         return nextline

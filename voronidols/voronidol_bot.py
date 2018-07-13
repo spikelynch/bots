@@ -27,13 +27,17 @@ if __name__ == '__main__':
     vorofile = bot.voronoi()
     # Mastodon doesn't allow empty text in a media post so generate
     # a little symmetrical iconoci emoji to go with the voronidol
-    if bot.args.service == 'Mastodon':
-        text = iconoci(random.randrange(3, 12))
-    else:
-        text = ""
+    text = iconoci(random.randrange(3, 12))
     if vorofile:
         bot.wait()
-        bot.post_image(vorofile, text)
+        options = {}
+        if 'content_warning' in bot.cf:
+            options['spoiler_text'] = bot.cf['content_warning'].format(text)
+        if "description" in bot.cf:
+            options['description'] = bot.cf['description'].format(text)
+        if options: 
+            options["sensitive"] = True
+        bot.post_image(vorofile, text, options)
     else:
         print("Something went wrong")
 
