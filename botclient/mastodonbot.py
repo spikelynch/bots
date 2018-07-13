@@ -46,9 +46,9 @@ Returns:
        """
         print("Posting %s" % imgfile)
         if 'description' in options:
-            image = self.mast.media_post(imgfile, description=options['description'])
+            image = self.mast.media_post(imgfile, mime_type=None, description=options['description'])
             del options['description']
-        else
+        else:
             image = self.mast.media_post(imgfile)
         if image:
             if not text:
