@@ -64,7 +64,7 @@ reason, this calls sys.exit().
             try:
                 self.cf = yaml.load(cf)
             except yaml.YAMLError as exc:
-                print("%s parse error: %s" % ( conffile, exc ))
+                print("%s parse error: %s" % ( self.args.config, exc ))
                 if hasattr(exc, 'problem_mark'):
                     mark = exc.problem_mark
                     print("Error position: (%s:%s)" % (mark.line + 1, mark.column + 1))
