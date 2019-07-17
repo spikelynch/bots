@@ -89,6 +89,9 @@ if __name__ == '__main__':
     tweet = bot.ulyssitise()
     if tweet:
         print(tweet)
-        bot.post(tweet)
+        options = {}
+        if 'content_warning' in bot.cf:
+            options['spoiler_text'] = bot.cf['content_warning']
+        bot.post(tweet, options)
     else:
         print("something went wrong")
